@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29509.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HP5071Alogger", "HP5071Alogger.csproj", "{CA5E1416-4731-462C-8830-6DB10EA851D6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA5E1416-4731-462C-8830-6DB10EA851D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA5E1416-4731-462C-8830-6DB10EA851D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA5E1416-4731-462C-8830-6DB10EA851D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA5E1416-4731-462C-8830-6DB10EA851D6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C522978C-37C7-4C18-8889-F8B3D9A9C773}
+	EndGlobalSection
+EndGlobal
