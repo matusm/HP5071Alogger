@@ -93,7 +93,7 @@ namespace HP5071Alogger
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             StringBuilder sb = new StringBuilder();
-            sb.Append($"{EntryDate.ToString("yyyy.MM.dd/HH:mm:ss")}{delimiter}");
+            sb.Append($"{EntryDate.ToString("yyyy-MM-dd HH:mm:ss+000")}{delimiter}");
             sb.Append($"{InternalMjd}{delimiter}");
             sb.Append($"{InternalTime}{delimiter}");
             sb.Append($"{CbtId}{delimiter}");
