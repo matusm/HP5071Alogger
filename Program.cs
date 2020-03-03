@@ -1,8 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.IO.Ports;
-using System.Text;
-using System.Threading;
 using HP5071Alogger.Properties;
 
 namespace HP5071Alogger
@@ -10,10 +6,9 @@ namespace HP5071Alogger
     class Program
     {
         // global fields
-        static string fileName;
-        static SerialPort serialPort;
-        static LogEntry logEntry;
         static Settings settings;
+        static CsStandard[] csStandards = new CsStandard[5];
+        static int numberOfCsStandards = 1;
 
         //*****************************************************************************
         static void Main(string[] args)
@@ -31,10 +26,22 @@ namespace HP5071Alogger
         private static void Setup()
         {
             settings = new Settings();
-            fileName = Path.Combine(settings.LogFilePath, settings.LogFileName);
-            OpenComPort(settings.ComPort1);
-            logEntry = new LogEntry(PullDiagonsticString());
-            WriteDataToLogFile(fileName, logEntry.ToCsvHeader());
+            //*****
+            csStandards[0] = new CsStandard(settings.Name1, settings.ComPort1);
+            csStandards[0].SetFullyQualifiedFileName(settings.LogFilePath, settings.LogFileBaseName1, settings.LogFileExtension);
+            //*****
+            csStandards[1] = new CsStandard(settings.Name2, settings.ComPort2);
+            csStandards[1].SetFullyQualifiedFileName(settings.LogFilePath, settings.LogFileBaseName2, settings.LogFileExtension);
+            //*****
+            csStandards[2] = new CsStandard(settings.Name3, settings.ComPort3);
+            csStandards[2].SetFullyQualifiedFileName(settings.LogFilePath, settings.LogFileBaseName3, settings.LogFileExtension);
+            //*****
+            csStandards[3] = new CsStandard(settings.Name4, settings.ComPort4);
+            csStandards[3].SetFullyQualifiedFileName(settings.LogFilePath, settings.LogFileBaseName4, settings.LogFileExtension);
+            //*****
+            csStandards[4] = new CsStandard(settings.Name5, settings.ComPort5);
+            csStandards[4].SetFullyQualifiedFileName(settings.LogFilePath, settings.LogFileBaseName5, settings.LogFileExtension);
+            //*****
         }
         //*****************************************************************************
 
@@ -44,9 +51,10 @@ namespace HP5071Alogger
             DateTime timeStamp = DateTime.UtcNow;
             if (TimeForLogging(timeStamp))
             {
-                logEntry = new LogEntry(PullDiagonsticString());
-                WriteDataToLogFile(fileName, logEntry.ToCsvString());
-                Thread.Sleep(1000 * settings.LogIntervallTolerance);
+                for (int i = 0; i < numberOfCsStandards; i++)
+                {
+                    csStandards[i].WriteDataToLogFile();
+                }
             }
         }
         //*****************************************************************************
@@ -61,73 +69,6 @@ namespace HP5071Alogger
                 }
             }
             return false;
-        }
-
-        static void WriteDataToLogFile(string fileName, string logLine)
-        {
-            try
-            {
-                StreamWriter writer = new StreamWriter(fileName, true);
-                writer.WriteLine(logLine);
-                writer.Close();
-                Console.WriteLine($"File {fileName} updated.");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                Console.WriteLine($"File {fileName} not updated.");
-            }
-        }
-
-        static string PullDiagonsticString()
-        {
-            RequestStatusReport();
-            string sysString = ReadStatusReport();
-            return sysString;
-        }
-
-        static void RequestStatusReport()
-        {
-            serialPort.WriteLine("SYSTEM:PRINT?");
-        }
-
-        static string ReadStatusReport()
-        {
-            StringBuilder sb = new StringBuilder();
-            while (true)
-            {
-                try
-                {
-                    string message = serialPort.ReadLine();
-                    sb.AppendLine(message);
-                }
-                catch
-                {
-                    break;
-                }
-            }
-            return sb.ToString();
-        }
-
-        static void OpenComPort(string comPort)
-        {
-            try
-            {
-                serialPort = new SerialPort(comPort, 9600, Parity.None, 8, StopBits.One);
-                serialPort.Open();
-                serialPort.Handshake = Handshake.XOnXOff;
-                serialPort.DiscardInBuffer();
-                serialPort.ReadTimeout = 1000;
-                serialPort.WriteTimeout = 1000;
-            }
-            catch (Exception e)
-            {
-                serialPort = null;
-                Console.WriteLine(e.Message);
-                Console.WriteLine();
-                Console.WriteLine("Exit program!");
-                Environment.Exit(1);
-            }
         }
 
     }

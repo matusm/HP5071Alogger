@@ -32,9 +32,7 @@
 // 
 //******************************************************************************
 
-
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -94,14 +92,6 @@ namespace HP5071Alogger
         public void SetCsvDelimiter(string delimiter)
         {
             this.delimiter = delimiter;
-        }
-
-        public string[] ToExcelRow()
-        {
-            string[] row = ToCsvString().Split(
-                new[] { delimiter },
-                StringSplitOptions.RemoveEmptyEntries); // empty entries should not exist
-            return row;
         }
 
         public string ToCsvString()
