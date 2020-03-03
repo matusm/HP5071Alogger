@@ -79,7 +79,7 @@ namespace HP5071Alogger.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Clock1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("SY5071A")]
         public string Name1 {
             get {
                 return ((string)(this["Name1"]));
@@ -88,10 +88,28 @@ namespace HP5071Alogger.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Clock2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("AG5071A")]
         public string Name2 {
             get {
                 return ((string)(this["Name2"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("HP5071A")]
+        public string Name3 {
+            get {
+                return ((string)(this["Name3"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM16")]
+        public string ComPort3 {
+            get {
+                return ((string)(this["ComPort3"]));
             }
         }
     }

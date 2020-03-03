@@ -21,10 +21,16 @@
       <Value Profile="(Default)">C:\Temp</Value>
     </Setting>
     <Setting Name="Name1" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Clock1</Value>
+      <Value Profile="(Default)">SY5071A</Value>
     </Setting>
     <Setting Name="Name2" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Clock2</Value>
+      <Value Profile="(Default)">AG5071A</Value>
+    </Setting>
+    <Setting Name="Name3" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">HP5071A</Value>
+    </Setting>
+    <Setting Name="ComPort3" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">COM16</Value>
     </Setting>
   </Settings>
 </SettingsFile>

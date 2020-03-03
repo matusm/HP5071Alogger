@@ -13,10 +13,14 @@
 // 2.) consume the required parameters or a formatted string for logging 
 //
 // Methods:
-// 1.) void ToCsvString()
-//     generates a comma separated string of all parameters for logging to a file
-// 1.) void ToCsvHeader()
-//     generates a comma separated string for all parameter titles
+// -- void SetCsvDelimiter(string)
+//    sets a string as the delimiter, default is ",".
+// -- void ToCsvString()
+//    generates a comma separated string of all parameters for logging to a file
+// -- void ToCsvHeader()
+//    generates a comma separated string for all parameter titles
+// -- void ToExcelRow()
+//    generates a string array of all data
 //
 // All the hard work of parsing is done in the constructor.
 // The properties (getters only) can be used separately.
@@ -30,6 +34,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -40,6 +45,7 @@ namespace HP5071Alogger
     public class LogEntry
     {
         private const string defaultDelimiter = ",";
+        private string delimiter = defaultDelimiter;
 
         #region Properties
         // standard parameters of type double
@@ -84,12 +90,21 @@ namespace HP5071Alogger
         #endregion
 
         #region Methods
-        public string ToCsvString()
+
+        public void SetCsvDelimiter(string delimiter)
         {
-            return ToCsvString(defaultDelimiter);
+            this.delimiter = delimiter;
         }
 
-        public string ToCsvString(string delimiter)
+        public string[] ToExcelRow()
+        {
+            string[] row = ToCsvString().Split(
+                new[] { delimiter },
+                StringSplitOptions.RemoveEmptyEntries); // empty entries should not exist
+            return row;
+        }
+
+        public string ToCsvString()
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             StringBuilder sb = new StringBuilder();
@@ -126,11 +141,6 @@ namespace HP5071Alogger
         }
 
         public string ToCsvHeader()
-        {
-            return ToCsvHeader(defaultDelimiter);
-        }
-
-        public string ToCsvHeader(string delimiter)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append($"Time stamp{delimiter}");
