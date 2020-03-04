@@ -26,6 +26,9 @@ namespace HP5071Alogger
         private static void Setup()
         {
             settings = new Settings();
+            numberOfCsStandards = settings.NumberOfStandards;
+            if (numberOfCsStandards < 1) numberOfCsStandards = 1;
+            if (numberOfCsStandards > 5) numberOfCsStandards = 5;
             //*****
             csStandards[0] = new CsStandard(settings.Name1, settings.ComPort1);
             csStandards[0].SetFullyQualifiedFileName(settings.LogFilePath, settings.LogFileBaseName1, settings.LogFileExtension);
