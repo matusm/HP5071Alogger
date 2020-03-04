@@ -29,22 +29,41 @@ namespace HP5071Alogger
             numberOfCsStandards = settings.NumberOfStandards;
             if (numberOfCsStandards < 1) numberOfCsStandards = 1;
             if (numberOfCsStandards > 5) numberOfCsStandards = 5;
-            //*****
-            csStandards[0] = new CsStandard(settings.Name1, settings.ComPort1);
-            csStandards[0].SetFullyQualifiedFileName(settings.LogFilePath, settings.LogFileBaseName1, settings.LogFileExtension);
-            //*****
-            csStandards[1] = new CsStandard(settings.Name2, settings.ComPort2);
-            csStandards[1].SetFullyQualifiedFileName(settings.LogFilePath, settings.LogFileBaseName2, settings.LogFileExtension);
-            //*****
-            csStandards[2] = new CsStandard(settings.Name3, settings.ComPort3);
-            csStandards[2].SetFullyQualifiedFileName(settings.LogFilePath, settings.LogFileBaseName3, settings.LogFileExtension);
-            //*****
-            csStandards[3] = new CsStandard(settings.Name4, settings.ComPort4);
-            csStandards[3].SetFullyQualifiedFileName(settings.LogFilePath, settings.LogFileBaseName4, settings.LogFileExtension);
-            //*****
-            csStandards[4] = new CsStandard(settings.Name5, settings.ComPort5);
-            csStandards[4].SetFullyQualifiedFileName(settings.LogFilePath, settings.LogFileBaseName5, settings.LogFileExtension);
-            //*****
+
+            csStandards[0] = new CsStandard(
+                settings.Name1, 
+                settings.ComPort1,
+                settings.LogFilePath, 
+                settings.LogFileBaseName1, 
+                settings.LogFileExtension);
+
+            csStandards[1] = new CsStandard(
+                settings.Name2,
+                settings.ComPort2,
+                settings.LogFilePath,
+                settings.LogFileBaseName2,
+                settings.LogFileExtension);
+
+            csStandards[2] = new CsStandard(
+                settings.Name3,
+                settings.ComPort3,
+                settings.LogFilePath,
+                settings.LogFileBaseName3,
+                settings.LogFileExtension);
+
+            csStandards[3] = new CsStandard(
+                settings.Name4,
+                settings.ComPort4,
+                settings.LogFilePath,
+                settings.LogFileBaseName4,
+                settings.LogFileExtension);
+
+            csStandards[4] = new CsStandard(
+                settings.Name5,
+                settings.ComPort5,
+                settings.LogFilePath,
+                settings.LogFileBaseName5,
+                settings.LogFileExtension);
         }
         //*****************************************************************************
 
