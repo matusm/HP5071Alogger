@@ -44,11 +44,18 @@ namespace HP5071Alogger
             WriteDataToLogFile(logEntry.ToCsvString());
         }
 
-        private string SetFullyQualifiedFileName(string path, string baseName, string extension)
+        public void WriteHeaderToLogFile()
         {
-            return Path.ChangeExtension(Path.Combine(path, baseName), extension);
-        }       
-        
+            string dummy = "   ";
+            var logEntry = new LogEntry(dummy);
+            WriteDataToLogFile(logEntry.ToCsvHeader());
+        }
+
+        public override string ToString()
+        {
+            return $"[CsStandard Name:{Name} ComPort:{ComPort} Path:{LogFileName}]";
+        }
+
         private void WriteDataToLogFile(string csvLine)
         {
             try
@@ -71,7 +78,7 @@ namespace HP5071Alogger
             {
                 OpenComPort();
             }
-            if (!serialPort.IsOpen)
+            if (serialPort.IsOpen)
             {
                 RequestStatusReport();
                 return ReadStatusReport();
@@ -115,15 +122,14 @@ namespace HP5071Alogger
             }
             catch (Exception e)
             {
-                serialPort = null;
-                Console.WriteLine(e.Message);
-                Console.WriteLine();
-                Console.WriteLine("Keep trying the next time.");
-                //Environment.Exit(1);
+                Console.WriteLine($"Cant open port {ComPort}, keep trying.");
             }
         }
 
-
+        private string SetFullyQualifiedFileName(string path, string baseName, string extension)
+        {
+            return Path.ChangeExtension(Path.Combine(path, baseName), extension);
+        }
 
 
 

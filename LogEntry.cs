@@ -13,14 +13,10 @@
 // 2.) consume the required parameters or a formatted string for logging 
 //
 // Methods:
-// -- void SetCsvDelimiter(string)
-//    sets a string as the delimiter, default is ",".
 // -- void ToCsvString()
 //    generates a comma separated string of all parameters for logging to a file
 // -- void ToCsvHeader()
 //    generates a comma separated string for all parameter titles
-// -- void ToExcelRow()
-//    generates a string array of all data
 //
 // All the hard work of parsing is done in the constructor.
 // The properties (getters only) can be used separately.
@@ -42,10 +38,11 @@ namespace HP5071Alogger
 {
     public class LogEntry
     {
-        private const string defaultDelimiter = ",";
-        private string delimiter = defaultDelimiter;
+        private const string defaultDelimiter = " ; ";
 
         #region Properties
+        // a static property for all instances of this class
+        public static string Delimiter { get; set; } = defaultDelimiter;
         // standard parameters of type double
         public SingleParameter FrequencyOffset { get; private set; }
         public SingleParameter OscillatorControl { get; private set; }
@@ -89,43 +86,38 @@ namespace HP5071Alogger
 
         #region Methods
 
-        public void SetCsvDelimiter(string delimiter)
-        {
-            this.delimiter = delimiter;
-        }
-
         public string ToCsvString()
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             StringBuilder sb = new StringBuilder();
-            sb.Append($"{EntryDate.ToString("yyyy-MM-dd HH:mm:ss+000")}{delimiter}");
-            sb.Append($"{InternalMjd}{delimiter}");
-            sb.Append($"{InternalTime}{delimiter}");
-            sb.Append($"{CbtId}{delimiter}");
-            sb.Append($"{StatusSummary}{delimiter}");
-            sb.Append($"{PowerSource}{delimiter}");
-            sb.Append($"{LogStatus}{delimiter}");
-            sb.Append($"{FrequencyOffset.Value}{delimiter}");
-            sb.Append($"{OscillatorControl.Value:F2}{delimiter}");
-            sb.Append($"{RfAmplitude1.Value:F1}{delimiter}");
-            sb.Append($"{RfAmplitude2.Value:F1}{delimiter}");
-            sb.Append($"{ZeemanFrequency.Value:F0}{delimiter}");
-            sb.Append($"{CFieldCurrent.Value:F3}{delimiter}");
-            sb.Append($"{EMultiplier.Value:F0}{delimiter}");
-            sb.Append($"{SignalGain.Value:F1}{delimiter}");
-            sb.Append($"{CbtOven.Value:F1}{delimiter}");
-            sb.Append($"{CbtOfenError.Value:F2}{delimiter}");
-            sb.Append($"{OscillatorOven.Value:F1}{delimiter}");
-            sb.Append($"{IonPump.Value:F1}{delimiter}");
-            sb.Append($"{HwIonizer.Value:F1}{delimiter}");
-            sb.Append($"{MassSpec.Value:F1}{delimiter}");
-            sb.Append($"{SawTuning.Value:F1}{delimiter}");
-            sb.Append($"{DroTuning.Value:F1}{delimiter}");
-            sb.Append($"{Mhz87Pll.Value:F1}{delimiter}");
-            sb.Append($"{UpClockPll.Value:F1}{delimiter}");
-            sb.Append($"{P12VSupply.Value:F1}{delimiter}");
-            sb.Append($"{M12VSupply.Value:F1}{delimiter}");
-            sb.Append($"{P5VSupply.Value:F1}{delimiter}");
+            sb.Append($"{EntryDate.ToString("yyyy-MM-dd HH:mm:ss+000")}{Delimiter}");
+            sb.Append($"{InternalMjd}{Delimiter}");
+            sb.Append($"{InternalTime}{Delimiter}");
+            sb.Append($"{CbtId}{Delimiter}");
+            sb.Append($"{StatusSummary}{Delimiter}");
+            sb.Append($"{PowerSource}{Delimiter}");
+            sb.Append($"{LogStatus}{Delimiter}");
+            sb.Append($"{FrequencyOffset.Value}{Delimiter}");
+            sb.Append($"{OscillatorControl.Value:F2}{Delimiter}");
+            sb.Append($"{RfAmplitude1.Value:F1}{Delimiter}");
+            sb.Append($"{RfAmplitude2.Value:F1}{Delimiter}");
+            sb.Append($"{ZeemanFrequency.Value:F0}{Delimiter}");
+            sb.Append($"{CFieldCurrent.Value:F3}{Delimiter}");
+            sb.Append($"{EMultiplier.Value:F0}{Delimiter}");
+            sb.Append($"{SignalGain.Value:F1}{Delimiter}");
+            sb.Append($"{CbtOven.Value:F1}{Delimiter}");
+            sb.Append($"{CbtOfenError.Value:F2}{Delimiter}");
+            sb.Append($"{OscillatorOven.Value:F1}{Delimiter}");
+            sb.Append($"{IonPump.Value:F1}{Delimiter}");
+            sb.Append($"{HwIonizer.Value:F1}{Delimiter}");
+            sb.Append($"{MassSpec.Value:F1}{Delimiter}");
+            sb.Append($"{SawTuning.Value:F1}{Delimiter}");
+            sb.Append($"{DroTuning.Value:F1}{Delimiter}");
+            sb.Append($"{Mhz87Pll.Value:F1}{Delimiter}");
+            sb.Append($"{UpClockPll.Value:F1}{Delimiter}");
+            sb.Append($"{P12VSupply.Value:F1}{Delimiter}");
+            sb.Append($"{M12VSupply.Value:F1}{Delimiter}");
+            sb.Append($"{P5VSupply.Value:F1}{Delimiter}");
             sb.Append($"{Thermometer.Value:F1}"); // last entry without delimiter
             return sb.ToString();
         }
@@ -133,34 +125,34 @@ namespace HP5071Alogger
         public string ToCsvHeader()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append($"Time stamp{delimiter}");
-            sb.Append($"MJD (internal){delimiter}");
-            sb.Append($"Date (internal){delimiter}");
-            sb.Append($"CBT ID{delimiter}");
-            sb.Append($"Status summary{delimiter}");
-            sb.Append($"Power source{delimiter}");
-            sb.Append($"Log status{delimiter}");
-            sb.Append($"{FrequencyOffset.Title}{delimiter}");
-            sb.Append($"{OscillatorControl.Title}{delimiter}");
-            sb.Append($"{RfAmplitude1.Title}{delimiter}");
-            sb.Append($"{RfAmplitude2.Title}{delimiter}");
-            sb.Append($"{ZeemanFrequency.Title}{delimiter}");
-            sb.Append($"{CFieldCurrent.Title}{delimiter}");
-            sb.Append($"{EMultiplier.Title}{delimiter}");
-            sb.Append($"{SignalGain.Title}{delimiter}");
-            sb.Append($"{CbtOven.Title}{delimiter}");
-            sb.Append($"{CbtOfenError.Title}{delimiter}");
-            sb.Append($"{OscillatorOven.Title}{delimiter}");
-            sb.Append($"{IonPump.Title}{delimiter}");
-            sb.Append($"{HwIonizer.Title}{delimiter}");
-            sb.Append($"{MassSpec.Title}{delimiter}");
-            sb.Append($"{SawTuning.Title}{delimiter}");
-            sb.Append($"{DroTuning.Title}{delimiter}");
-            sb.Append($"{Mhz87Pll.Title}{delimiter}");
-            sb.Append($"{UpClockPll.Title}{delimiter}");
-            sb.Append($"{P12VSupply.Title}{delimiter}");
-            sb.Append($"{M12VSupply.Title}{delimiter}");
-            sb.Append($"{P5VSupply.Title}{delimiter}");
+            sb.Append($"Time stamp{Delimiter}");
+            sb.Append($"MJD (internal){Delimiter}");
+            sb.Append($"Date (internal){Delimiter}");
+            sb.Append($"CBT ID{Delimiter}");
+            sb.Append($"Status summary{Delimiter}");
+            sb.Append($"Power source{Delimiter}");
+            sb.Append($"Log status{Delimiter}");
+            sb.Append($"{FrequencyOffset.Title}{Delimiter}");
+            sb.Append($"{OscillatorControl.Title}{Delimiter}");
+            sb.Append($"{RfAmplitude1.Title}{Delimiter}");
+            sb.Append($"{RfAmplitude2.Title}{Delimiter}");
+            sb.Append($"{ZeemanFrequency.Title}{Delimiter}");
+            sb.Append($"{CFieldCurrent.Title}{Delimiter}");
+            sb.Append($"{EMultiplier.Title}{Delimiter}");
+            sb.Append($"{SignalGain.Title}{Delimiter}");
+            sb.Append($"{CbtOven.Title}{Delimiter}");
+            sb.Append($"{CbtOfenError.Title}{Delimiter}");
+            sb.Append($"{OscillatorOven.Title}{Delimiter}");
+            sb.Append($"{IonPump.Title}{Delimiter}");
+            sb.Append($"{HwIonizer.Title}{Delimiter}");
+            sb.Append($"{MassSpec.Title}{Delimiter}");
+            sb.Append($"{SawTuning.Title}{Delimiter}");
+            sb.Append($"{DroTuning.Title}{Delimiter}");
+            sb.Append($"{Mhz87Pll.Title}{Delimiter}");
+            sb.Append($"{UpClockPll.Title}{Delimiter}");
+            sb.Append($"{P12VSupply.Title}{Delimiter}");
+            sb.Append($"{M12VSupply.Title}{Delimiter}");
+            sb.Append($"{P5VSupply.Title}{Delimiter}");
             sb.Append($"{Thermometer.Title}"); // last entry without delimiter
             return sb.ToString();
         }

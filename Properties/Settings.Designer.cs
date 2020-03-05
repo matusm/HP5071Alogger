@@ -43,7 +43,7 @@ namespace HP5071Alogger.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
         public int LogIntervall {
             get {
                 return ((int)(this["LogIntervall"]));
@@ -52,7 +52,7 @@ namespace HP5071Alogger.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
         public int LogIntervallTolerance {
             get {
                 return ((int)(this["LogIntervallTolerance"]));
@@ -133,7 +133,7 @@ namespace HP5071Alogger.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SY5071A_v1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("CsLogFile1")]
         public string LogFileBaseName1 {
             get {
                 return ((string)(this["LogFileBaseName1"]));
@@ -142,7 +142,7 @@ namespace HP5071Alogger.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("AG5071A_v2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("CsLogFile2")]
         public string LogFileBaseName2 {
             get {
                 return ((string)(this["LogFileBaseName2"]));
@@ -178,7 +178,7 @@ namespace HP5071Alogger.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(",")]
+        [global::System.Configuration.DefaultSettingValueAttribute(" ; ")]
         public string CsvDelimiter {
             get {
                 return ((string)(this["CsvDelimiter"]));
@@ -205,7 +205,7 @@ namespace HP5071Alogger.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
         public int NumberOfStandards {
             get {
                 return ((int)(this["NumberOfStandards"]));

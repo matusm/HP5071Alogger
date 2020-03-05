@@ -40,12 +40,6 @@ namespace HP5071Alogger
             Value = double.NaN;
         }
 
-        // TODO delete, actually not needed
-        public bool IsOfName(string name)
-        {
-            return string.Equals(KeyName, name.Trim(), StringComparison.OrdinalIgnoreCase);
-        }
-
         public bool NameIsIn(string str)
         {
             return str.Contains(KeyName); // case sensitive!

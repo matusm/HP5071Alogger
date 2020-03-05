@@ -9,10 +9,10 @@
       <Value Profile="(Default)">COM1</Value>
     </Setting>
     <Setting Name="LogIntervall" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">5</Value>
+      <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="LogIntervallTolerance" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">4</Value>
+      <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="LogFileExtension" Type="System.String" Scope="Application">
       <Value Profile="(Default)">log</Value>
@@ -39,10 +39,10 @@
       <Value Profile="(Default)">COMzz</Value>
     </Setting>
     <Setting Name="LogFileBaseName1" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">SY5071A_v1</Value>
+      <Value Profile="(Default)">CsLogFile1</Value>
     </Setting>
     <Setting Name="LogFileBaseName2" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">AG5071A_v2</Value>
+      <Value Profile="(Default)">CsLogFile2</Value>
     </Setting>
     <Setting Name="LogFileBaseName3" Type="System.String" Scope="Application">
       <Value Profile="(Default)">dummy</Value>
@@ -54,7 +54,7 @@
       <Value Profile="(Default)">dummy</Value>
     </Setting>
     <Setting Name="CsvDelimiter" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">,</Value>
+      <Value Profile="(Default)"> ; </Value>
     </Setting>
     <Setting Name="Name4" Type="System.String" Scope="Application">
       <Value Profile="(Default)">MM00004</Value>
@@ -63,7 +63,7 @@
       <Value Profile="(Default)">MM00005</Value>
     </Setting>
     <Setting Name="NumberOfStandards" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">1</Value>
+      <Value Profile="(Default)">2</Value>
     </Setting>
   </Settings>
 </SettingsFile>

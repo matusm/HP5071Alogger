@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using HP5071Alogger.Properties;
 
 namespace HP5071Alogger
@@ -29,6 +30,8 @@ namespace HP5071Alogger
             numberOfCsStandards = settings.NumberOfStandards;
             if (numberOfCsStandards < 1) numberOfCsStandards = 1;
             if (numberOfCsStandards > 5) numberOfCsStandards = 5;
+
+            LogEntry.Delimiter = settings.CsvDelimiter;
 
             csStandards[0] = new CsStandard(
                 settings.Name1, 
@@ -64,25 +67,42 @@ namespace HP5071Alogger
                 settings.LogFilePath,
                 settings.LogFileBaseName5,
                 settings.LogFileExtension);
+
+            // some diagnostic output
+            for (int i = 0; i < numberOfCsStandards; i++)
+            {
+                Console.WriteLine(csStandards[i]);
+            }
+            Console.WriteLine();
+
+            // write header in for logfiles
+            // TODO call only for new files!
+            for (int i = 0; i < numberOfCsStandards; i++)
+            {
+                csStandards[i].WriteHeaderToLogFile();
+            }
+
         }
         //*****************************************************************************
 
         //*****************************************************************************
         private static void Loop()
         {
-            DateTime timeStamp = DateTime.UtcNow;
-            if (TimeForLogging(timeStamp))
+            if (ItsTimeForLogging())
             {
                 for (int i = 0; i < numberOfCsStandards; i++)
                 {
                     csStandards[i].WriteDataToLogFile();
                 }
+                Thread.Sleep(1000 * settings.LogIntervallTolerance);
             }
+            Thread.Sleep(250);
         }
         //*****************************************************************************
 
-        private static bool TimeForLogging(DateTime timeStamp)
+        private static bool ItsTimeForLogging()
         {
+            DateTime timeStamp = DateTime.UtcNow;
             if (timeStamp.Second <= (settings.LogIntervallTolerance - 1))
             {
                 if (timeStamp.Minute % settings.LogIntervall == 0)
