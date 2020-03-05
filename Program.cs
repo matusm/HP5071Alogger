@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Threading;
 using HP5071Alogger.Properties;
 
@@ -26,6 +27,8 @@ namespace HP5071Alogger
         //*****************************************************************************
         private static void Setup()
         {
+            WriteWellcomeMessage();
+
             settings = new Settings();
             numberOfCsStandards = settings.NumberOfStandards;
             if (numberOfCsStandards < 1) numberOfCsStandards = 1;
@@ -81,6 +84,7 @@ namespace HP5071Alogger
             {
                 csStandards[i].WriteHeaderToLogFile();
             }
+            Console.WriteLine();
 
         }
         //*****************************************************************************
@@ -94,6 +98,7 @@ namespace HP5071Alogger
                 {
                     csStandards[i].WriteDataToLogFile();
                 }
+                Console.WriteLine();
                 Thread.Sleep(1000 * settings.LogIntervallTolerance);
             }
             Thread.Sleep(250);
@@ -111,6 +116,13 @@ namespace HP5071Alogger
                 }
             }
             return false;
+        }
+
+        private static void WriteWellcomeMessage()
+        {
+            string AppName = Assembly.GetExecutingAssembly().GetName().Name;
+            string AppVer = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            Console.WriteLine($"This is {AppName}, version {AppVer}");
         }
 
     }

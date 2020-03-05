@@ -63,7 +63,7 @@ namespace HP5071Alogger
                 StreamWriter writer = new StreamWriter(LogFileName, true);
                 writer.WriteLine(csvLine);
                 writer.Close();
-                Console.WriteLine($"File {LogFileName} updated with data from {Name}.");
+                Console.WriteLine($"File {LogFileName} (for {Name}) updated.");
             }
             catch (Exception e)
             {
