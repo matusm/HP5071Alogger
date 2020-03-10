@@ -24,6 +24,8 @@ namespace HP5071Alogger
 {
     public class CsStandard
     {
+        private const int DELAY = 100; // a delay in ms
+
         private SerialPort serialPort;
 
         public string Name { get; private set; }
@@ -50,11 +52,6 @@ namespace HP5071Alogger
             string dummy = "   ";
             var logEntry = new LogEntry(dummy);
             WriteDataToLogFile(logEntry.ToCsvHeader());
-        }
-
-        public override string ToString()
-        {
-            return $"[CsStandard Name:{Name} ComPort:{ComPort} Path:{LogFileName}]";
         }
 
         private void WriteDataToLogFile(string csvLine)
@@ -92,6 +89,7 @@ namespace HP5071Alogger
         {
             serialPort.DiscardOutBuffer();
             serialPort.DiscardInBuffer();
+            //serialPort.WriteLine(command); //
             command += "\r\n";
             byte[] buffer = Encoding.ASCII.GetBytes(command);
             try
@@ -101,8 +99,7 @@ namespace HP5071Alogger
             catch (Exception)
             {
             }
-            //serialPort.WriteLine(command);
-            Thread.Sleep(100);
+            Thread.Sleep(DELAY);
         }
 
         private string ReadLineBytewise()
@@ -146,22 +143,17 @@ namespace HP5071Alogger
             try
             {
                 serialPort = new SerialPort(ComPort, 9600, Parity.None, 8, StopBits.One);
-                //serialPort.Handshake = Handshake.XOnXOff;
                 serialPort.Handshake = Handshake.None;
                 serialPort.ReadTimeout = 100;
                 serialPort.WriteTimeout = 100;
                 serialPort.RtsEnable = false;
                 serialPort.DtrEnable = false;
-                //serialPort.NewLine = "/r";
-                int dummy = serialPort.BaudRate;
                 serialPort.Open();
                 Console.WriteLine($"*****DEBUG 0 serialPort.IsOpen: {serialPort.IsOpen}");
 
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                Console.WriteLine(e.Message);
                 Console.WriteLine($"Cant open port {ComPort}, keep trying.");
             }
         }
@@ -171,8 +163,10 @@ namespace HP5071Alogger
             return Path.ChangeExtension(Path.Combine(path, baseName), extension);
         }
 
-
-
+        public override string ToString()
+        {
+            return $"[CsStandard - Name:{Name} ComPort:{ComPort} Path:{LogFileName}]";
+        }
 
 
     }
