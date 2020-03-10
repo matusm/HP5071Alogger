@@ -18,6 +18,7 @@ using System;
 using System.Text;
 using System.IO.Ports;
 using System.IO;
+using System.Threading;
 
 namespace HP5071Alogger
 {
@@ -81,34 +82,60 @@ namespace HP5071Alogger
             if (serialPort.IsOpen)
             {
                 Console.WriteLine("*****DEBUG 1");
-                RequestStatusReport();
-                return ReadStatusReport();
+                SendCommand("SYSTEM:PRINT?");
+                return ReceiveString();
             }
             return "";
         }
 
-        private void RequestStatusReport()
+        private void SendCommand(string command)
         {
             serialPort.DiscardOutBuffer();
             serialPort.DiscardInBuffer();
-            serialPort.WriteLine("SYSTEM:PRINT?");
+            command += "\r\n";
+            byte[] buffer = Encoding.ASCII.GetBytes(command);
+            try
+            {
+                serialPort.Write(buffer, 0, buffer.Length);
+            }
+            catch (Exception)
+            {
+            }
+            //serialPort.WriteLine(command);
+            Thread.Sleep(100);
         }
 
-        private string ReadStatusReport()
+        private string ReadLineBytewise()
+        {
+            string str = "";
+            while (serialPort.BytesToRead > 0)
+            {
+                byte[] buffer = new byte[serialPort.BytesToRead];
+                serialPort.Read(buffer, 0, buffer.Length);
+                str += Encoding.UTF8.GetString(buffer);
+            }
+            return str;
+        }
+
+        private string ReceiveString()
         {
             StringBuilder sb = new StringBuilder();
+            Console.WriteLine($"*****DEBUG 2 ReadStatusReport() entered ");
+            int numberOfTimeouts = 0;
             while (true)
             {
                 try
                 {
+                    Console.WriteLine($"*****DEBUG 3 loop in ReadStatusReport() entered ");
+                    //string message = ReadLineBytewise();
                     string message = serialPort.ReadLine();
                     sb.AppendLine(message);
-                    Console.WriteLine($"*****DEBUG 2 <{message}> ");
+                    Console.WriteLine($"*****DEBUG 4 <{message}> ");
                 }
-                catch (Exception e)
+                catch (TimeoutException)
                 {
-                    Console.WriteLine(e);
-                    break;
+                    numberOfTimeouts++;
+                    if (numberOfTimeouts > 4) break;
                 }
             }
             return sb.ToString();
@@ -121,14 +148,15 @@ namespace HP5071Alogger
                 serialPort = new SerialPort(ComPort, 9600, Parity.None, 8, StopBits.One);
                 //serialPort.Handshake = Handshake.XOnXOff;
                 serialPort.Handshake = Handshake.None;
-                serialPort.RtsEnable = true;
-                //serialPort.DiscardInBuffer();
-                serialPort.ReadTimeout = 1000;
-                serialPort.WriteTimeout = 1000;
+                serialPort.ReadTimeout = 100;
+                serialPort.WriteTimeout = 100;
+                serialPort.RtsEnable = false;
+                serialPort.DtrEnable = false;
+                //serialPort.NewLine = "/r";
                 int dummy = serialPort.BaudRate;
                 serialPort.Open();
-                Console.WriteLine($"****DEBUG serialPort.IsOpen: {serialPort.IsOpen}");
-               
+                Console.WriteLine($"*****DEBUG 0 serialPort.IsOpen: {serialPort.IsOpen}");
+
             }
             catch (Exception e)
             {
