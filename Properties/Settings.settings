@@ -2,90 +2,68 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="HP5071Alogger.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-  
     <Setting Name="NumberOfStandards" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">2</Value>
+      <Value Profile="(Default)">1</Value>
     </Setting>
-	
-	<Setting Name="CsvDelimiter" Type="System.String" Scope="Application">
+    <Setting Name="CsvDelimiter" Type="System.String" Scope="Application">
       <Value Profile="(Default)"> ; </Value>
     </Setting>
-	
-	<Setting Name="LogIntervall" Type="System.Int32" Scope="Application">
+    <Setting Name="LogIntervall" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">2</Value>
     </Setting>
-	
-	<Setting Name="LogIntervallTolerance" Type="System.Int32" Scope="Application">
+    <Setting Name="LogIntervallTolerance" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">2</Value>
     </Setting>
-	
-	<Setting Name="LogFileExtension" Type="System.String" Scope="Application">
+    <Setting Name="LogFileExtension" Type="System.String" Scope="Application">
       <Value Profile="(Default)">log</Value>
     </Setting>
-    
-	<Setting Name="LogFilePath" Type="System.String" Scope="Application">
+    <Setting Name="LogFilePath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">C:\Temp</Value>
     </Setting>
-    
-	<Setting Name="ComPort1" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">COM16</Value>
+    <Setting Name="ComPort1" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">COM7</Value>
     </Setting>
-    
-	<Setting Name="ComPort2" Type="System.String" Scope="Application">
+    <Setting Name="ComPort2" Type="System.String" Scope="Application">
       <Value Profile="(Default)">COM1</Value>
-	 </Setting>
-	  
-	<Setting Name="ComPort3" Type="System.String" Scope="Application">
+    </Setting>
+    <Setting Name="ComPort3" Type="System.String" Scope="Application">
       <Value Profile="(Default)">COMxx</Value>
     </Setting>
-    
-	<Setting Name="ComPort4" Type="System.String" Scope="Application">
+    <Setting Name="ComPort4" Type="System.String" Scope="Application">
       <Value Profile="(Default)">COMyy</Value>
     </Setting>
-    
-	<Setting Name="ComPort5" Type="System.String" Scope="Application">
+    <Setting Name="ComPort5" Type="System.String" Scope="Application">
       <Value Profile="(Default)">COMzz</Value>
     </Setting>
-    
-	<Setting Name="Name1" Type="System.String" Scope="Application">
+    <Setting Name="Name1" Type="System.String" Scope="Application">
       <Value Profile="(Default)">SY5071A</Value>
     </Setting>
-    
-	<Setting Name="Name2" Type="System.String" Scope="Application">
+    <Setting Name="Name2" Type="System.String" Scope="Application">
       <Value Profile="(Default)">AG5071A</Value>
     </Setting>
-    
-	<Setting Name="Name3" Type="System.String" Scope="Application">
+    <Setting Name="Name3" Type="System.String" Scope="Application">
       <Value Profile="(Default)">HP5071A</Value>
     </Setting>
-
     <Setting Name="Name4" Type="System.String" Scope="Application">
       <Value Profile="(Default)">MM00004</Value>
     </Setting>
-    
-	<Setting Name="Name5" Type="System.String" Scope="Application">
+    <Setting Name="Name5" Type="System.String" Scope="Application">
       <Value Profile="(Default)">MM00005</Value>
     </Setting>
-	
     <Setting Name="LogFileBaseName1" Type="System.String" Scope="Application">
       <Value Profile="(Default)">CsLogFile1</Value>
     </Setting>
-    
-	<Setting Name="LogFileBaseName2" Type="System.String" Scope="Application">
+    <Setting Name="LogFileBaseName2" Type="System.String" Scope="Application">
       <Value Profile="(Default)">CsLogFile2</Value>
     </Setting>
-    
-	<Setting Name="LogFileBaseName3" Type="System.String" Scope="Application">
+    <Setting Name="LogFileBaseName3" Type="System.String" Scope="Application">
       <Value Profile="(Default)">dummy</Value>
     </Setting>
-    
-	<Setting Name="LogFileBaseName4" Type="System.String" Scope="Application">
+    <Setting Name="LogFileBaseName4" Type="System.String" Scope="Application">
       <Value Profile="(Default)">dummy</Value>
     </Setting>
-    
-	<Setting Name="LogFileBaseName5" Type="System.String" Scope="Application">
+    <Setting Name="LogFileBaseName5" Type="System.String" Scope="Application">
       <Value Profile="(Default)">dummy</Value>
     </Setting>
-
   </Settings>
 </SettingsFile>
