@@ -80,6 +80,7 @@ namespace HP5071Alogger
             }
             if (serialPort.IsOpen)
             {
+                Console.WriteLine("*****DEBUG 1");
                 RequestStatusReport();
                 return ReadStatusReport();
             }
@@ -88,6 +89,8 @@ namespace HP5071Alogger
 
         private void RequestStatusReport()
         {
+            serialPort.DiscardOutBuffer();
+            serialPort.DiscardInBuffer();
             serialPort.WriteLine("SYSTEM:PRINT?");
         }
 
@@ -100,9 +103,11 @@ namespace HP5071Alogger
                 {
                     string message = serialPort.ReadLine();
                     sb.AppendLine(message);
+                    Console.WriteLine($"*****DEBUG 2 <{message}> ");
                 }
-                catch
+                catch (Exception e)
                 {
+                    Console.WriteLine(e);
                     break;
                 }
             }
@@ -114,14 +119,21 @@ namespace HP5071Alogger
             try
             {
                 serialPort = new SerialPort(ComPort, 9600, Parity.None, 8, StopBits.One);
-                serialPort.Open();
-                serialPort.Handshake = Handshake.XOnXOff;
-                serialPort.DiscardInBuffer();
+                //serialPort.Handshake = Handshake.XOnXOff;
+                serialPort.Handshake = Handshake.None;
+                serialPort.RtsEnable = true;
+                //serialPort.DiscardInBuffer();
                 serialPort.ReadTimeout = 1000;
                 serialPort.WriteTimeout = 1000;
+                int dummy = serialPort.BaudRate;
+                serialPort.Open();
+                Console.WriteLine($"****DEBUG serialPort.IsOpen: {serialPort.IsOpen}");
+               
             }
             catch (Exception e)
             {
+                Console.WriteLine(e);
+                Console.WriteLine(e.Message);
                 Console.WriteLine($"Cant open port {ComPort}, keep trying.");
             }
         }
