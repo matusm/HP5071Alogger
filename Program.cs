@@ -33,7 +33,6 @@ namespace HP5071Alogger
             numberOfCsStandards = settings.NumberOfStandards;
             if (numberOfCsStandards < 1) numberOfCsStandards = 1;
             if (numberOfCsStandards > 5) numberOfCsStandards = 5;
-
             LogEntry.Delimiter = settings.CsvDelimiter;
 
             csStandards[0] = new CsStandard(
@@ -71,12 +70,6 @@ namespace HP5071Alogger
                 settings.LogFileBaseName5,
                 settings.LogFileExtension);
 
-
-            // get instrument identification
-            for (int i = 0; i < numberOfCsStandards; i++)
-            {
-                csStandards[i].IdentifyInstrument();
-            }
             Console.WriteLine();
 
             // some diagnostic output

@@ -25,26 +25,32 @@ namespace HP5071Alogger
     public class CsStandard
     {
         private const int DELAY = 100; // a delay in ms
-
         private SerialPort serialPort;
 
+        #region Properties
         public string ID { get; private set; }
         public string Name { get; private set; }
         public string ComPort { get; private set; }
         public string LogFileName { get; private set; }
+        #endregion
 
+        #region Ctor
         public CsStandard(string name, string comPort, string path, string baseName, string extension)
         {
             ComPort = comPort.Trim();
             Name = name.Trim();
             LogFileName = SetFullyQualifiedFileName(path, baseName, extension);
             serialPort = new SerialPort();
+            IdentifyInstrument();
         }
+        #endregion
 
+        #region Methods
         public void WriteDataToLogFile()
         {
             string diagnosticString = PullDiagonsticString();
             var logEntry = new LogEntry(diagnosticString);
+            Console.WriteLine($"Status summary for {Name}: {logEntry.StatusSummary}");
             WriteDataToLogFile(logEntry.ToCsvString());
         }
 
@@ -54,6 +60,26 @@ namespace HP5071Alogger
             var logEntry = new LogEntry(dummy);
             if(!File.Exists(LogFileName))
                 WriteDataToLogFile(logEntry.ToCsvHeader());
+        }
+        #endregion
+
+        private void IdentifyInstrument()
+        {
+            ID = "*";
+            if (!serialPort.IsOpen)
+            {
+                OpenComPort();
+            }
+            if (serialPort.IsOpen)
+            {
+                string command = "*IDN?";
+                SendCommand(command);
+                ID = ReceiveString();
+                ID = ID.Replace('\n', ' ');
+                ID = ID.Replace('\r', ' ');
+                ID = ID.Replace(command, " ");
+                ID = ID.Trim();
+            }
         }
 
         private void WriteDataToLogFile(string csvLine)
@@ -86,52 +112,12 @@ namespace HP5071Alogger
             return "";
         }
 
-        internal void IdentifyInstrumentk()
-        {
-            if (!serialPort.IsOpen)
-            {
-                OpenComPort();
-            }
-            if (serialPort.IsOpen)
-            {
-                string command = "*idn?";
-                SendCommand(command);
-                ID = ReceiveString();
-                ID = ID.Replace('\n', ' ');
-                ID = ID.Replace('\r', ' ');
-                ID = ID.Replace(command, " ");
-                ID = ID.Trim();
-            }
-        }
-
         private void SendCommand(string command)
         {
             serialPort.DiscardOutBuffer();
             serialPort.DiscardInBuffer();
-            //serialPort.WriteLine(command); // probably this will work with correct cable
-            command += "\r\n";
-            byte[] buffer = Encoding.ASCII.GetBytes(command);
-            try
-            {
-                serialPort.Write(buffer, 0, buffer.Length);
-            }
-            catch (Exception)
-            {
-            }
+            serialPort.WriteLine(command); 
             Thread.Sleep(DELAY);
-        }
-
-        // obviously not needed
-        private string ReadLineBytewise()
-        {
-            string str = "";
-            while (serialPort.BytesToRead > 0)
-            {
-                byte[] buffer = new byte[serialPort.BytesToRead];
-                serialPort.Read(buffer, 0, buffer.Length);
-                str += Encoding.UTF8.GetString(buffer);
-            }
-            return str;
         }
 
         private string ReceiveString()
@@ -142,7 +128,6 @@ namespace HP5071Alogger
             {
                 try
                 {
-                    //string message = ReadLineBytewise();
                     string message = serialPort.ReadLine();
                     sb.AppendLine(message);
                 }
