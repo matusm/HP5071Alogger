@@ -63,6 +63,7 @@ namespace HP5071Alogger
         }
         #endregion
 
+        #region Private stuff
         private void IdentifyInstrument()
         {
             ID = "*";
@@ -163,6 +164,7 @@ namespace HP5071Alogger
         {
             return Path.ChangeExtension(Path.Combine(path, baseName), extension);
         }
+        #endregion
 
         public override string ToString()
         {
