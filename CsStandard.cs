@@ -78,7 +78,6 @@ namespace HP5071Alogger
             }
             if (serialPort.IsOpen)
             {
-                Console.WriteLine("*****DEBUG 1");
                 SendCommand("SYSTEM:PRINT?");
                 return ReceiveString();
             }
@@ -89,7 +88,7 @@ namespace HP5071Alogger
         {
             serialPort.DiscardOutBuffer();
             serialPort.DiscardInBuffer();
-            //serialPort.WriteLine(command); //
+            //serialPort.WriteLine(command); // probably this will work with correct cable
             command += "\r\n";
             byte[] buffer = Encoding.ASCII.GetBytes(command);
             try
@@ -102,6 +101,7 @@ namespace HP5071Alogger
             Thread.Sleep(DELAY);
         }
 
+        // obviously not needed
         private string ReadLineBytewise()
         {
             string str = "";
@@ -117,17 +117,14 @@ namespace HP5071Alogger
         private string ReceiveString()
         {
             StringBuilder sb = new StringBuilder();
-            Console.WriteLine($"*****DEBUG 2 ReadStatusReport()");
             int numberOfTimeouts = 0;
             while (true)
             {
                 try
                 {
-                    Console.WriteLine($"*****DEBUG 3 loop in ReadStatusReport()");
                     //string message = ReadLineBytewise();
                     string message = serialPort.ReadLine();
                     sb.AppendLine(message);
-                    Console.WriteLine($"*****DEBUG 4 <{message}> ");
                 }
                 catch (TimeoutException)
                 {
@@ -149,12 +146,11 @@ namespace HP5071Alogger
                 serialPort.RtsEnable = false;
                 serialPort.DtrEnable = false;
                 serialPort.Open();
-                Console.WriteLine($"*****DEBUG 0 serialPort.IsOpen: {serialPort.IsOpen}");
-
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Cant open port {ComPort}, keep trying.");
+                Console.WriteLine($"Message received: {e.Message}");
             }
         }
 
