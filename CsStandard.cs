@@ -86,7 +86,7 @@ namespace HP5071Alogger
             return "";
         }
 
-        internal void IdentifyInstrument()
+        internal void IdentifyInstrumentk()
         {
             if (!serialPort.IsOpen)
             {
@@ -94,8 +94,13 @@ namespace HP5071Alogger
             }
             if (serialPort.IsOpen)
             {
-                SendCommand("*idn?");
-                ID = ReceiveString().Trim();
+                string command = "*idn?";
+                SendCommand(command);
+                ID = ReceiveString();
+                ID = ID.Replace('\n', ' ');
+                ID = ID.Replace('\r', ' ');
+                ID = ID.Replace(command, " ");
+                ID = ID.Trim();
             }
         }
 
