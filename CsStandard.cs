@@ -28,6 +28,7 @@ namespace HP5071Alogger
 
         private SerialPort serialPort;
 
+        public string ID { get; private set; }
         public string Name { get; private set; }
         public string ComPort { get; private set; }
         public string LogFileName { get; private set; }
@@ -51,7 +52,8 @@ namespace HP5071Alogger
         {
             string dummy = "   ";
             var logEntry = new LogEntry(dummy);
-            WriteDataToLogFile(logEntry.ToCsvHeader());
+            if(!File.Exists(LogFileName))
+                WriteDataToLogFile(logEntry.ToCsvHeader());
         }
 
         private void WriteDataToLogFile(string csvLine)
@@ -82,6 +84,12 @@ namespace HP5071Alogger
                 return ReceiveString();
             }
             return "";
+        }
+
+        internal void IdentifyInstrument()
+        {
+            SendCommand("*idn?");
+            ID = ReceiveString().Trim();
         }
 
         private void SendCommand(string command)
@@ -161,7 +169,7 @@ namespace HP5071Alogger
 
         public override string ToString()
         {
-            return $"[CsStandard - Name:{Name} ComPort:{ComPort} Path:{LogFileName}]";
+            return $"[CsStandard - ID:{ID} Name:{Name} ComPort:{ComPort} Path:{LogFileName}]";
         }
 
 

@@ -71,6 +71,14 @@ namespace HP5071Alogger
                 settings.LogFileBaseName5,
                 settings.LogFileExtension);
 
+
+            // get instrument identification
+            for (int i = 0; i < numberOfCsStandards; i++)
+            {
+                csStandards[i].IdentifyInstrument();
+            }
+            Console.WriteLine();
+
             // some diagnostic output
             for (int i = 0; i < numberOfCsStandards; i++)
             {
@@ -78,8 +86,7 @@ namespace HP5071Alogger
             }
             Console.WriteLine();
 
-            // write header in for logfiles
-            // TODO call only for new files!
+            // write header in for logfiles, aktive only if file does not exist
             for (int i = 0; i < numberOfCsStandards; i++)
             {
                 csStandards[i].WriteHeaderToLogFile();
