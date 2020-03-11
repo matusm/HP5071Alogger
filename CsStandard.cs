@@ -88,8 +88,15 @@ namespace HP5071Alogger
 
         internal void IdentifyInstrument()
         {
-            SendCommand("*idn?");
-            ID = ReceiveString().Trim();
+            if (!serialPort.IsOpen)
+            {
+                OpenComPort();
+            }
+            if (serialPort.IsOpen)
+            {
+                SendCommand("*idn?");
+                ID = ReceiveString().Trim();
+            }
         }
 
         private void SendCommand(string command)
