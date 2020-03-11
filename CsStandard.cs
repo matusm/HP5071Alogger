@@ -117,13 +117,13 @@ namespace HP5071Alogger
         private string ReceiveString()
         {
             StringBuilder sb = new StringBuilder();
-            Console.WriteLine($"*****DEBUG 2 ReadStatusReport() entered ");
+            Console.WriteLine($"*****DEBUG 2 ReadStatusReport()");
             int numberOfTimeouts = 0;
             while (true)
             {
                 try
                 {
-                    Console.WriteLine($"*****DEBUG 3 loop in ReadStatusReport() entered ");
+                    Console.WriteLine($"*****DEBUG 3 loop in ReadStatusReport()");
                     //string message = ReadLineBytewise();
                     string message = serialPort.ReadLine();
                     sb.AppendLine(message);
