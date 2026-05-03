@@ -10,7 +10,6 @@
 // 1.) instantiate class with five string parameters
 //     (name, com port, directory, filename, and file name extension)
 // 2.) call WriteDataToLogFile() at any time
-//
 // 
 //******************************************************************************
 
@@ -24,17 +23,13 @@ namespace HP5071Alogger
 {
     public class CsStandard
     {
-        private const int DELAY = 100; // a delay in ms
-        private SerialPort serialPort;
 
-        #region Properties
+
         public string ID { get; private set; }
         public string Name { get; private set; }
         public string ComPort { get; private set; }
         public string LogFileName { get; private set; }
-        #endregion
 
-        #region Ctor
         public CsStandard(string name, string comPort, string path, string baseName, string extension)
         {
             ComPort = comPort.Trim();
@@ -43,9 +38,7 @@ namespace HP5071Alogger
             serialPort = new SerialPort();
             IdentifyInstrument();
         }
-        #endregion
 
-        #region Methods
         public void WriteDataToLogFile()
         {
             string diagnosticString = PullDiagonsticString();
@@ -61,9 +54,7 @@ namespace HP5071Alogger
             if(!File.Exists(LogFileName))
                 WriteDataToLogFile(logEntry.ToCsvHeader());
         }
-        #endregion
 
-        #region Private stuff
         private void IdentifyInstrument()
         {
             ID = "*";
@@ -164,13 +155,11 @@ namespace HP5071Alogger
         {
             return Path.ChangeExtension(Path.Combine(path, baseName), extension);
         }
-        #endregion
 
-        public override string ToString()
-        {
-            return $"[CsStandard - ID:{ID} Name:{Name} ComPort:{ComPort} Path:{LogFileName}]";
-        }
+        private const int DELAY = 100; // a delay in ms
+        private SerialPort serialPort;
 
+        public override string ToString() => $"[CsStandard - ID:{ID} Name:{Name} ComPort:{ComPort} Path:{LogFileName}]";
 
     }
 }

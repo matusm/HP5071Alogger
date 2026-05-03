@@ -21,13 +21,10 @@
 // 
 //******************************************************************************
 
-using System;
-
 namespace HP5071Alogger
 {
     public class SingleParameter
     {
-
         public string KeyName { get; private set; }
         public string Unit { get; private set; }
         public double Value { get; set; }
@@ -40,15 +37,8 @@ namespace HP5071Alogger
             Value = double.NaN;
         }
 
-        public bool NameIsIn(string str)
-        {
-            return str.Contains(KeyName); // case sensitive!
-        }
+        public bool NameIsIn(string str) => str.Contains(KeyName); // case sensitive!
 
-        public override string ToString()
-        {
-            return $"[{GetType().Name}: Name={KeyName} Value={Value} Unit={Unit}]";
-        }
-
+        public override string ToString() => $"[{GetType().Name}: Name={KeyName} Value={Value} Unit={Unit}]";
     }
 }

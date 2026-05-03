@@ -79,7 +79,7 @@ namespace HP5071Alogger
             }
             Console.WriteLine();
 
-            // write header in for logfiles, aktive only if file does not exist
+            // write header in logfiles, active only if file does not exist yet
             for (int i = 0; i < numberOfCsStandards; i++)
             {
                 csStandards[i].WriteHeaderToLogFile();
@@ -124,6 +124,5 @@ namespace HP5071Alogger
             string AppVer = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             Console.WriteLine($"This is {AppName}, version {AppVer}");
         }
-
     }
 }

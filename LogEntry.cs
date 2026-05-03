@@ -20,7 +20,7 @@
 //
 // All the hard work of parsing is done in the constructor.
 // The properties (getters only) can be used separately.
-// However the main usage is to generate a formatted string for logging
+// However the main usage is to generate a formatted string for logging.
 //
 // Example:
 //  var entry = new LogEntry(diagString);
@@ -40,9 +40,9 @@ namespace HP5071Alogger
     {
         private const string defaultDelimiter = " ; ";
 
-        #region Properties
         // a static property for all instances of this class
         public static string Delimiter { get; set; } = defaultDelimiter;
+
         // standard parameters of type double
         public SingleParameter FrequencyOffset { get; private set; }
         public SingleParameter OscillatorControl { get; private set; }
@@ -74,17 +74,12 @@ namespace HP5071Alogger
         public string CbtId { get; private set; }
         public int InternalMjd { get; private set; }
         public string InternalTime { get; private set; }
-        #endregion
 
-        #region Ctor
         public LogEntry(string systPrint)
         {
             ResetAllProperties();
             ParseDiagnosticString(systPrint);
         }
-        #endregion
-
-        #region Methods
 
         public string ToCsvString()
         {
@@ -157,9 +152,6 @@ namespace HP5071Alogger
             return sb.ToString();
         }
 
-        #endregion
-
-        #region Private stuff
         private void ResetAllProperties()
         {
             FrequencyOffset = new SingleParameter("Freq Offset", "");
@@ -308,6 +300,5 @@ namespace HP5071Alogger
             return double.NaN;
         }
 
-        #endregion
     }
 }
